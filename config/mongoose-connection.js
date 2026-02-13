@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
+const config = require('config');
+const dbgr = require('debug')('development:mongoose');
 
-mongoose.connect('mongodb://localhost:27017/retromania')
+mongoose.connect(`${config.get('MONGODB_URI')}/retromania`)
 .then(() => {
-    console.log('Connected to MongoDB');
+    dbgr('Connected to MongoDB');
 })
 .catch((err) => {
-    console.error('Error connecting to MongoDB:', err);
+    dbgr('Error connecting to MongoDB:', err);
 }); 
 
-module.exports = mongoose;
+module.exports = mongoose.connection;
 
